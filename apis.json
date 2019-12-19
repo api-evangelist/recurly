@@ -1,0 +1,87 @@
+{
+    "name": "Recurly",
+    "description": "Recurly provides enterprise-class subscription billing management for thousands of businesses worldwide.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/2178-recurly.jpg",
+    "tags": [
+        "billing",
+        "has api",
+        "have api",
+        "no api definition",
+        "webhook implementations"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/recurly\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Recurly",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/2178-recurly.jpg",
+            "humanURL": "https:\/\/recurly.com\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/recurly-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Base",
+            "url": "https:\/\/:*.recurly.com"
+        },
+        {
+            "type": "Blog",
+            "url": "https:\/\/blog.recurly.com\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "https:\/\/blog.recurly.com\/feed\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "http:\/\/www.crunchbase.com\/company\/recurly"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/recurly"
+        },
+        {
+            "type": "Developers",
+            "url": "https:\/\/docs.recurly.com\/"
+        },
+        {
+            "type": "Email",
+            "url": "support@recurly.com"
+        },
+        {
+            "type": "Email",
+            "url": "press@recurly.com"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/recurly"
+        },
+        {
+            "type": "Pricing",
+            "url": "https:\/\/recurly.com\/pricing\/"
+        },
+        {
+            "type": "Twitter",
+            "url": "http:\/\/twitter.com\/recurly"
+        },
+        {
+            "type": "Webhooks",
+            "url": "https:\/\/dev.recurly.com\/page\/webhooks"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/recurly.com\/"
+        }
+    ]
+}

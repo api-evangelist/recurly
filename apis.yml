@@ -1,0 +1,78 @@
+aid: recurly
+name: Recurly
+description: >-
+  Recurly is a subscription management and recurring billing platform that
+  handles signups, plans, add-ons, coupons, dunning, invoicing, tax,
+  revenue recognition, and analytics for subscription businesses. The
+  Recurly v3 REST API gives developers full access to accounts,
+  subscriptions, invoices, transactions, plans, and webhooks, with a
+  versioned `Accept` header for API revisions. Authentication uses HTTP
+  Basic with a site-scoped API key.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Subscriptions
+  - Billing
+  - Payments
+  - Recurring Revenue
+  - Invoicing
+  - Dunning
+  - Revenue Recognition
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/recurly/refs/heads/main/apis.yml
+created: '2026-05-11'
+modified: '2026-05-11'
+specificationVersion: '0.19'
+apis:
+  - aid: recurly:v3-api
+    name: Recurly v3 API
+    description: >-
+      Full REST API for managing accounts, subscriptions, plans, add-ons,
+      coupons, invoices, line items, transactions, shipping, tax, and
+      webhooks across a Recurly site. Authentication is HTTP Basic with a
+      private API key as the username; clients pin an API version through
+      the `Accept: application/vnd.recurly.<version>` header.
+    humanURL: https://recurly.com/developers/api/
+    baseURL: https://v3.recurly.com
+    tags:
+      - Subscriptions
+      - Billing
+      - Invoices
+      - Accounts
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://recurly.com/developers/api/
+      - type: API Reference
+        url: https://recurly.com/developers/api/v2021-02-25/index.html
+      - type: OpenAPI
+        url: https://github.com/recurly/recurly-client-spec
+      - type: Authentication
+        url: https://recurly.com/developers/api/v2021-02-25/index.html#section/Getting-Started/API-Authentication
+      - type: Webhooks
+        url: https://recurly.com/developers/webhooks/
+
+common:
+  - type: Website
+    url: https://recurly.com
+  - type: Documentation
+    url: https://docs.recurly.com
+  - type: Developer Portal
+    url: https://recurly.com/developers/
+  - type: API Reference
+    url: https://recurly.com/developers/api/
+  - type: Pricing
+    url: https://recurly.com/pricing/
+  - type: Sign Up
+    url: https://recurly.com/get-started/
+  - type: GitHub Organization
+    url: https://github.com/recurly
+  - type: Client Libraries
+    url: https://recurly.com/developers/client-libraries/
+  - type: Support
+    url: https://recurly.zendesk.com
+  - type: Status
+    url: https://status.recurly.com
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

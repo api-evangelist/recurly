@@ -53,6 +53,8 @@ apis:
         url: https://recurly.com/developers/webhooks/
 
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/recurly
   - type: Website
     url: https://recurly.com
   - type: Documentation

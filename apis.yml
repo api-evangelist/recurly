@@ -75,6 +75,8 @@ common:
     url: https://recurly.zendesk.com
   - type: StatusPage
     url: https://status.recurly.com
+  - type: LLMsTxt
+    url: https://docs.recurly.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

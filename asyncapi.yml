@@ -1,0 +1,2188 @@
+asyncapi: '2.6.0'
+info:
+  title: Recurly Webhooks
+  version: '1.0.0'
+  description: >-
+    AsyncAPI 2.6 description of Recurly's webhook (push notification) surface.
+    Recurly delivers notifications by HTTP POST to one or more endpoints
+    configured per site, with each endpoint subscribed to up to 10 notification
+    types. Payloads are available as either JSON or XML; this document models
+    the documented XML envelope, where each event uses a distinct top-level
+    XML root element (for example, `new_account_notification`,
+    `paid_charge_invoice_notification`). Event coverage is derived from the
+    Recurly webhooks reference at docs.recurly.com (account, subscription,
+    prerenewal, charge invoice, credit invoice, legacy invoice, payment,
+    credit payment, dunning, gift card, usage, item, and external
+    subscription notifications).
+  contact:
+    name: Recurly Developer Documentation
+    url: https://docs.recurly.com/docs/webhooks
+  license:
+    name: Proprietary - Recurly
+    url: https://recurly.com/legal/terms/
+  x-source-references:
+    - https://docs.recurly.com/docs/webhooks
+    - https://docs.recurly.com/recurly-subscriptions/docs/account-notifications
+    - https://docs.recurly.com/docs/subscription-notifications
+    - https://docs.recurly.com/docs/prerenewal-notifications
+    - https://docs.recurly.com/docs/charge-invoice-notifications
+    - https://docs.recurly.com/docs/credit-invoice-notifications
+    - https://docs.recurly.com/docs/invoice-notifications
+    - https://docs.recurly.com/docs/payment-notifications
+    - https://docs.recurly.com/docs/credit-payment-notifications
+    - https://docs.recurly.com/docs/dunning-events-notifications
+    - https://docs.recurly.com/docs/gift-card-notifications
+    - https://docs.recurly.com/docs/usage-notifications
+    - https://docs.recurly.com/docs/item-notifications
+    - https://docs.recurly.com/docs/external-subscription-notifications
+
+defaultContentType: application/xml
+
+servers:
+  subscriber:
+    url: '{endpointUrl}'
+    protocol: https
+    description: >-
+      Customer-hosted HTTPS endpoint configured under Integrations > Webhooks
+      in the Recurly admin UI. Each Recurly site can register multiple
+      endpoints; each endpoint may subscribe to up to 10 notification types.
+    variables:
+      endpointUrl:
+        description: Fully qualified HTTPS URL of the subscriber endpoint.
+        default: https://example.com/recurly/webhooks
+
+channels:
+
+  # ----------------------------------------------------------------------
+  # Account notifications
+  # ----------------------------------------------------------------------
+  account/new:
+    description: A new account is created in Recurly.
+    subscribe:
+      operationId: onNewAccount
+      summary: New account notification.
+      message:
+        $ref: '#/components/messages/NewAccountNotification'
+
+  account/updated:
+    description: Account attributes (not billing info, shipping, or acquisition) updated.
+    subscribe:
+      operationId: onUpdatedAccount
+      summary: Updated account notification.
+      message:
+        $ref: '#/components/messages/UpdatedAccountNotification'
+
+  account/canceled:
+    description: An account is closed.
+    subscribe:
+      operationId: onCanceledAccount
+      summary: Canceled (closed) account notification.
+      message:
+        $ref: '#/components/messages/CanceledAccountNotification'
+
+  account/billing-info-updated:
+    description: Billing information successfully created or updated with a credit card or token.
+    subscribe:
+      operationId: onBillingInfoUpdated
+      summary: Billing info updated notification.
+      message:
+        $ref: '#/components/messages/BillingInfoUpdatedNotification'
+
+  account/shipping-address/new:
+    description: A new shipping address is created on an account.
+    subscribe:
+      operationId: onNewShippingAddress
+      summary: New shipping address notification.
+      message:
+        $ref: '#/components/messages/NewShippingAddressNotification'
+
+  account/shipping-address/updated:
+    description: An existing shipping address is edited.
+    subscribe:
+      operationId: onUpdatedShippingAddress
+      summary: Updated shipping address notification.
+      message:
+        $ref: '#/components/messages/UpdatedShippingAddressNotification'
+
+  account/shipping-address/deleted:
+    description: An existing shipping address is deleted.
+    subscribe:
+      operationId: onDeletedShippingAddress
+      summary: Deleted shipping address notification.
+      message:
+        $ref: '#/components/messages/DeletedShippingAddressNotification'
+
+  # ----------------------------------------------------------------------
+  # Subscription notifications
+  # ----------------------------------------------------------------------
+  subscription/new:
+    description: A new subscription is created.
+    subscribe:
+      operationId: onNewSubscription
+      message:
+        $ref: '#/components/messages/NewSubscriptionNotification'
+
+  subscription/updated:
+    description: A subscription is upgraded, downgraded, or has renewal date changed.
+    subscribe:
+      operationId: onUpdatedSubscription
+      message:
+        $ref: '#/components/messages/UpdatedSubscriptionNotification'
+
+  subscription/canceled:
+    description: A subscription is canceled and will not renew.
+    subscribe:
+      operationId: onCanceledSubscription
+      message:
+        $ref: '#/components/messages/CanceledSubscriptionNotification'
+
+  subscription/expired:
+    description: A subscription is no longer valid.
+    subscribe:
+      operationId: onExpiredSubscription
+      message:
+        $ref: '#/components/messages/ExpiredSubscriptionNotification'
+
+  subscription/renewed:
+    description: A subscription completes a billing cycle.
+    subscribe:
+      operationId: onRenewedSubscription
+      message:
+        $ref: '#/components/messages/RenewedSubscriptionNotification'
+
+  subscription/reactivated:
+    description: >-
+      A previously canceled subscription is reactivated. Note Recurly's XML
+      root for this event is `reactivated_account_notification`.
+    subscribe:
+      operationId: onReactivatedAccount
+      message:
+        $ref: '#/components/messages/ReactivatedAccountNotification'
+
+  subscription/paused:
+    description: A subscription pause becomes active.
+    subscribe:
+      operationId: onSubscriptionPaused
+      message:
+        $ref: '#/components/messages/SubscriptionPausedNotification'
+
+  subscription/resumed:
+    description: A subscription moves from paused back to active.
+    subscribe:
+      operationId: onSubscriptionResumed
+      message:
+        $ref: '#/components/messages/SubscriptionResumedNotification'
+
+  subscription/scheduled-pause:
+    description: A future pause is scheduled on a subscription.
+    subscribe:
+      operationId: onScheduledSubscriptionPause
+      message:
+        $ref: '#/components/messages/ScheduledSubscriptionPauseNotification'
+
+  subscription/scheduled-update:
+    description: A subscription change is scheduled to take effect at a future date.
+    subscribe:
+      operationId: onScheduledSubscriptionUpdate
+      message:
+        $ref: '#/components/messages/ScheduledSubscriptionUpdateNotification'
+
+  subscription/pause-modified:
+    description: An existing subscription pause has its duration changed.
+    subscribe:
+      operationId: onSubscriptionPauseModified
+      message:
+        $ref: '#/components/messages/SubscriptionPauseModifiedNotification'
+
+  subscription/paused-renewal:
+    description: A renewal that was skipped because the subscription is paused.
+    subscribe:
+      operationId: onPausedSubscriptionRenewal
+      message:
+        $ref: '#/components/messages/PausedSubscriptionRenewalNotification'
+
+  subscription/pause-canceled:
+    description: A scheduled subscription pause is canceled.
+    subscribe:
+      operationId: onSubscriptionPauseCanceled
+      message:
+        $ref: '#/components/messages/SubscriptionPauseCanceledNotification'
+
+  # ----------------------------------------------------------------------
+  # Prerenewal notifications
+  # ----------------------------------------------------------------------
+  subscription/prerenewal:
+    description: >-
+      A prerenewal reminder one day prior to the next billing cycle or
+      expiration. The XML root is `prerenewal_notification` and the inner
+      `notification_type` element identifies the specific reminder
+      (e.g. `prerenewal`, `bill_date_reminder`, `cc_will_expire`,
+      `subscription_trial_expiring`, `term_renewal_reminder`,
+      `annual_subscription_reminder`, `six_month_subscription_reminder`,
+      `ramp_price_will_change`, `mastercard_subscription_will_renew`,
+      `sepa_subscription_will_renew`, `bacs_subscription_will_renew`).
+    subscribe:
+      operationId: onPrerenewal
+      message:
+        $ref: '#/components/messages/PrerenewalNotification'
+
+  # ----------------------------------------------------------------------
+  # Charge invoice notifications (Credit Invoices feature)
+  # ----------------------------------------------------------------------
+  invoice/charge/new:
+    description: A charge invoice is created.
+    subscribe:
+      operationId: onNewChargeInvoice
+      message:
+        $ref: '#/components/messages/NewChargeInvoiceNotification'
+
+  invoice/charge/processing:
+    description: A charge invoice moves to processing (ACH).
+    subscribe:
+      operationId: onProcessingChargeInvoice
+      message:
+        $ref: '#/components/messages/ProcessingChargeInvoiceNotification'
+
+  invoice/charge/past-due:
+    description: A charge invoice becomes past due.
+    subscribe:
+      operationId: onPastDueChargeInvoice
+      message:
+        $ref: '#/components/messages/PastDueChargeInvoiceNotification'
+
+  invoice/charge/paid:
+    description: A charge invoice is paid.
+    subscribe:
+      operationId: onPaidChargeInvoice
+      message:
+        $ref: '#/components/messages/PaidChargeInvoiceNotification'
+
+  invoice/charge/failed:
+    description: Charge invoice failed (direct decline or dunning cycle complete).
+    subscribe:
+      operationId: onFailedChargeInvoice
+      message:
+        $ref: '#/components/messages/FailedChargeInvoiceNotification'
+
+  invoice/charge/reopened:
+    description: A manually collected charge invoice is reopened.
+    subscribe:
+      operationId: onReopenedChargeInvoice
+      message:
+        $ref: '#/components/messages/ReopenedChargeInvoiceNotification'
+
+  invoice/charge/updated:
+    description: A charge invoice is edited.
+    subscribe:
+      operationId: onUpdatedChargeInvoice
+      message:
+        $ref: '#/components/messages/UpdatedChargeInvoiceNotification'
+
+  # ----------------------------------------------------------------------
+  # Credit invoice notifications
+  # ----------------------------------------------------------------------
+  invoice/credit/new:
+    description: A credit invoice is created.
+    subscribe:
+      operationId: onNewCreditInvoice
+      message:
+        $ref: '#/components/messages/NewCreditInvoiceNotification'
+
+  invoice/credit/processing:
+    description: A refund credit invoice enters a processing state (ACH refund).
+    subscribe:
+      operationId: onProcessingCreditInvoice
+      message:
+        $ref: '#/components/messages/ProcessingCreditInvoiceNotification'
+
+  invoice/credit/closed:
+    description: A credit invoice's balance reaches zero.
+    subscribe:
+      operationId: onClosedCreditInvoice
+      message:
+        $ref: '#/components/messages/ClosedCreditInvoiceNotification'
+
+  invoice/credit/voided:
+    description: A credit invoice is fully voided.
+    subscribe:
+      operationId: onVoidedCreditInvoice
+      message:
+        $ref: '#/components/messages/VoidedCreditInvoiceNotification'
+
+  invoice/credit/reopened:
+    description: A closed credit invoice is reopened.
+    subscribe:
+      operationId: onReopenedCreditInvoice
+      message:
+        $ref: '#/components/messages/ReopenedCreditInvoiceNotification'
+
+  invoice/credit/open:
+    description: A credit invoice is issued in or returns to an open state.
+    subscribe:
+      operationId: onOpenCreditInvoice
+      message:
+        $ref: '#/components/messages/OpenCreditInvoiceNotification'
+
+  invoice/credit/updated:
+    description: A credit invoice is edited.
+    subscribe:
+      operationId: onUpdatedCreditInvoice
+      message:
+        $ref: '#/components/messages/UpdatedCreditInvoiceNotification'
+
+  # ----------------------------------------------------------------------
+  # Legacy invoice notifications (sites without Credit Invoices feature)
+  # ----------------------------------------------------------------------
+  invoice/legacy/new:
+    description: A new (legacy) invoice is generated.
+    subscribe:
+      operationId: onNewInvoice
+      message:
+        $ref: '#/components/messages/NewInvoiceNotification'
+
+  invoice/legacy/pending:
+    description: An automatic legacy invoice requires further action.
+    subscribe:
+      operationId: onPendingInvoice
+      message:
+        $ref: '#/components/messages/PendingInvoiceNotification'
+
+  invoice/legacy/processing:
+    description: A legacy invoice moves to processing (ACH/PayPal eCheck).
+    subscribe:
+      operationId: onProcessingInvoice
+      message:
+        $ref: '#/components/messages/ProcessingInvoiceNotification'
+
+  invoice/legacy/closed:
+    description: A legacy invoice is closed (paid or failed).
+    subscribe:
+      operationId: onClosedInvoice
+      message:
+        $ref: '#/components/messages/ClosedInvoiceNotification'
+
+  invoice/legacy/past-due:
+    description: A legacy invoice is past due.
+    subscribe:
+      operationId: onPastDueInvoice
+      message:
+        $ref: '#/components/messages/PastDueInvoiceNotification'
+
+  # ----------------------------------------------------------------------
+  # Payment notifications
+  # ----------------------------------------------------------------------
+  payment/scheduled:
+    description: An asynchronous payment (ACH, SEPA, etc.) is initiated.
+    subscribe:
+      operationId: onScheduledPayment
+      message:
+        $ref: '#/components/messages/ScheduledPaymentNotification'
+
+  payment/processing:
+    description: An ACH or PayPal eCheck payment moves to processing.
+    subscribe:
+      operationId: onProcessingPayment
+      message:
+        $ref: '#/components/messages/ProcessingPaymentNotification'
+
+  payment/successful:
+    description: A payment is approved.
+    subscribe:
+      operationId: onSuccessfulPayment
+      message:
+        $ref: '#/components/messages/SuccessfulPaymentNotification'
+
+  payment/failed:
+    description: A payment is declined by the gateway.
+    subscribe:
+      operationId: onFailedPayment
+      message:
+        $ref: '#/components/messages/FailedPaymentNotification'
+
+  payment/refund-successful:
+    description: A refund is processed.
+    subscribe:
+      operationId: onSuccessfulRefund
+      message:
+        $ref: '#/components/messages/SuccessfulRefundNotification'
+
+  payment/void:
+    description: A successfully captured payment is voided before settlement.
+    subscribe:
+      operationId: onVoidPayment
+      message:
+        $ref: '#/components/messages/VoidPaymentNotification'
+
+  payment/fraud-info-updated:
+    description: Kount fraud review information is updated.
+    subscribe:
+      operationId: onFraudInfoUpdated
+      message:
+        $ref: '#/components/messages/FraudInfoUpdatedNotification'
+
+  payment/transaction-status-updated:
+    description: A transaction receives status updates from the gateway.
+    subscribe:
+      operationId: onTransactionStatusUpdated
+      message:
+        $ref: '#/components/messages/TransactionStatusUpdatedNotification'
+
+  payment/transaction-authorized:
+    description: Payment authorization succeeded (separate authorize and capture).
+    subscribe:
+      operationId: onTransactionAuthorized
+      message:
+        $ref: '#/components/messages/TransactionAuthorizedNotification'
+
+  # ----------------------------------------------------------------------
+  # Credit payment notifications
+  # ----------------------------------------------------------------------
+  credit-payment/new:
+    description: A credit payment is created.
+    subscribe:
+      operationId: onNewCreditPayment
+      message:
+        $ref: '#/components/messages/NewCreditPaymentNotification'
+
+  credit-payment/voided:
+    description: A credit payment is voided.
+    subscribe:
+      operationId: onVoidedCreditPayment
+      message:
+        $ref: '#/components/messages/VoidedCreditPaymentNotification'
+
+  # ----------------------------------------------------------------------
+  # Dunning event notifications
+  # ----------------------------------------------------------------------
+  dunning/event:
+    description: A dunning event fires per the site's dunning configuration.
+    subscribe:
+      operationId: onNewDunningEvent
+      message:
+        $ref: '#/components/messages/NewDunningEventNotification'
+
+  # ----------------------------------------------------------------------
+  # Gift card notifications
+  # ----------------------------------------------------------------------
+  gift-card/purchased:
+    description: A gift card is purchased.
+    subscribe:
+      operationId: onPurchasedGiftCard
+      message:
+        $ref: '#/components/messages/PurchasedGiftCardNotification'
+
+  gift-card/canceled:
+    description: A gift card is canceled.
+    subscribe:
+      operationId: onCanceledGiftCard
+      message:
+        $ref: '#/components/messages/CanceledGiftCardNotification'
+
+  gift-card/updated:
+    description: A gift card is updated.
+    subscribe:
+      operationId: onUpdatedGiftCard
+      message:
+        $ref: '#/components/messages/UpdatedGiftCardNotification'
+
+  gift-card/regenerated:
+    description: A gift card code is regenerated.
+    subscribe:
+      operationId: onRegeneratedGiftCard
+      message:
+        $ref: '#/components/messages/RegeneratedGiftCardNotification'
+
+  gift-card/redeemed:
+    description: A gift card is redeemed.
+    subscribe:
+      operationId: onRedeemedGiftCard
+      message:
+        $ref: '#/components/messages/RedeemedGiftCardNotification'
+
+  gift-card/balance-updated:
+    description: A gift card balance is updated.
+    subscribe:
+      operationId: onUpdatedBalanceGiftCard
+      message:
+        $ref: '#/components/messages/UpdatedBalanceGiftCardNotification'
+
+  gift-card/low-balance:
+    description: A gift card has a low balance.
+    subscribe:
+      operationId: onLowBalanceGiftCard
+      message:
+        $ref: '#/components/messages/LowBalanceGiftCardNotification'
+
+  # ----------------------------------------------------------------------
+  # Usage notifications
+  # ----------------------------------------------------------------------
+  usage/new:
+    description: A usage record is created automatically by Recurly (refund or terminate scenarios).
+    subscribe:
+      operationId: onNewUsage
+      message:
+        $ref: '#/components/messages/NewUsageNotification'
+
+  # ----------------------------------------------------------------------
+  # Item notifications (Catalog feature)
+  # ----------------------------------------------------------------------
+  item/new:
+    description: A catalog item is created.
+    subscribe:
+      operationId: onNewItem
+      message:
+        $ref: '#/components/messages/NewItemNotification'
+
+  item/updated:
+    description: A catalog item is updated.
+    subscribe:
+      operationId: onUpdatedItem
+      message:
+        $ref: '#/components/messages/UpdatedItemNotification'
+
+  item/deactivated:
+    description: A catalog item is deactivated.
+    subscribe:
+      operationId: onDeactivatedItem
+      message:
+        $ref: '#/components/messages/DeactivatedItemNotification'
+
+  item/reactivated:
+    description: A catalog item is reactivated.
+    subscribe:
+      operationId: onReactivatedItem
+      message:
+        $ref: '#/components/messages/ReactivatedItemNotification'
+
+  # ----------------------------------------------------------------------
+  # External subscription notifications
+  # ----------------------------------------------------------------------
+  external-subscription/new:
+    subscribe:
+      operationId: onNewExternalSubscription
+      message:
+        $ref: '#/components/messages/NewExternalSubscriptionNotification'
+
+  external-subscription/renewed:
+    subscribe:
+      operationId: onRenewedExternalSubscription
+      message:
+        $ref: '#/components/messages/RenewedExternalSubscriptionNotification'
+
+  external-subscription/canceled:
+    subscribe:
+      operationId: onCanceledExternalSubscription
+      message:
+        $ref: '#/components/messages/CanceledExternalSubscriptionNotification'
+
+  external-subscription/downgraded:
+    subscribe:
+      operationId: onDowngradedExternalSubscription
+      message:
+        $ref: '#/components/messages/DowngradedExternalSubscriptionNotification'
+
+  external-subscription/upgraded:
+    subscribe:
+      operationId: onUpgradedExternalSubscription
+      message:
+        $ref: '#/components/messages/UpgradedExternalSubscriptionNotification'
+
+  external-subscription/expired:
+    subscribe:
+      operationId: onExpiredExternalSubscription
+      message:
+        $ref: '#/components/messages/ExpiredExternalSubscriptionNotification'
+
+  external-subscription/extended-renewal:
+    subscribe:
+      operationId: onExtendedRenewalExternalSubscription
+      message:
+        $ref: '#/components/messages/ExtendedRenewalExternalSubscriptionNotification'
+
+  external-subscription/renewal-failure:
+    subscribe:
+      operationId: onRenewalFailureExternalSubscription
+      message:
+        $ref: '#/components/messages/RenewalFailureExternalSubscriptionNotification'
+
+  external-subscription/renewal-failure-with-grace-period:
+    subscribe:
+      operationId: onRenewalFailureWithGracePeriodExternalSubscription
+      message:
+        $ref: '#/components/messages/RenewalFailureWithGracePeriodExternalSubscriptionNotification'
+
+  external-subscription/reactivated:
+    subscribe:
+      operationId: onReactivatedExternalSubscription
+      message:
+        $ref: '#/components/messages/ReactivatedExternalSubscriptionNotification'
+
+  external-subscription/resubscribed:
+    subscribe:
+      operationId: onResubscribedExternalSubscription
+      message:
+        $ref: '#/components/messages/ResubscribedExternalSubscriptionNotification'
+
+  external-subscription/refunded:
+    subscribe:
+      operationId: onRefundedExternalSubscription
+      message:
+        $ref: '#/components/messages/RefundedExternalSubscriptionNotification'
+
+  external-subscription/refund-declined:
+    subscribe:
+      operationId: onRefundDeclinedExternalSubscription
+      message:
+        $ref: '#/components/messages/RefundDeclinedExternalSubscriptionNotification'
+
+  external-subscription/refund-reversed:
+    subscribe:
+      operationId: onRefundReversedExternalSubscription
+      message:
+        $ref: '#/components/messages/RefundReversedExternalSubscriptionNotification'
+
+  external-subscription/paused:
+    subscribe:
+      operationId: onPausedExternalSubscription
+      message:
+        $ref: '#/components/messages/PausedExternalSubscriptionNotification'
+
+  external-subscription/revoked:
+    subscribe:
+      operationId: onRevokedExternalSubscription
+      message:
+        $ref: '#/components/messages/RevokedExternalSubscriptionNotification'
+
+  external-subscription/recovered:
+    subscribe:
+      operationId: onRecoveredExternalSubscription
+      message:
+        $ref: '#/components/messages/RecoveredExternalSubscriptionNotification'
+
+  external-subscription/price-change-confirmed:
+    subscribe:
+      operationId: onPriceChangeConfirmedExternalSubscription
+      message:
+        $ref: '#/components/messages/PriceChangeConfirmedExternalSubscriptionNotification'
+
+  external-subscription/pause-schedule-changed:
+    subscribe:
+      operationId: onPauseScheduleChangedExternalSubscription
+      message:
+        $ref: '#/components/messages/PauseScheduleChangedExternalSubscriptionNotification'
+
+  external-subscription/voided:
+    subscribe:
+      operationId: onVoidedExternalSubscription
+      message:
+        $ref: '#/components/messages/VoidedExternalSubscriptionNotification'
+
+  external-subscription/plan-changed:
+    subscribe:
+      operationId: onPlanChangedExternalSubscription
+      message:
+        $ref: '#/components/messages/PlanChangedExternalSubscriptionNotification'
+
+  external-subscription/downgrade-canceled:
+    subscribe:
+      operationId: onDowngradeCanceledExternalSubscription
+      message:
+        $ref: '#/components/messages/DowngradeCanceledExternalSubscriptionNotification'
+
+  external-subscription/consumption-requested:
+    subscribe:
+      operationId: onConsumptionRequestedExternalSubscription
+      message:
+        $ref: '#/components/messages/ConsumptionRequestedExternalSubscriptionNotification'
+
+components:
+
+  messageTraits:
+    RecurlyWebhookTrait:
+      contentType: application/xml
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+      headers:
+        type: object
+        properties:
+          Content-Type:
+            type: string
+            description: Either application/xml or application/json depending on subscription format.
+            enum:
+              - application/xml
+              - application/json
+          User-Agent:
+            type: string
+            description: Recurly's outbound webhook user agent.
+
+  schemas:
+
+    AccountRef:
+      type: object
+      description: Minimal account block included in many Recurly webhook payloads.
+      xml:
+        name: account
+      properties:
+        account_code:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+        last_name:
+          type: string
+        company_name:
+          type: string
+
+    SubscriptionRef:
+      type: object
+      description: Subscription block included in subscription, prerenewal, dunning, and invoice events.
+      xml:
+        name: subscription
+      properties:
+        uuid:
+          type: string
+        state:
+          type: string
+        plan:
+          type: object
+          properties:
+            plan_code:
+              type: string
+            name:
+              type: string
+        quantity:
+          type: integer
+        total_amount_in_cents:
+          type: integer
+        activated_at:
+          type: string
+          format: date-time
+        canceled_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: string
+          format: date-time
+        current_period_started_at:
+          type: string
+          format: date-time
+        current_period_ends_at:
+          type: string
+          format: date-time
+        trial_started_at:
+          type: string
+          format: date-time
+        trial_ends_at:
+          type: string
+          format: date-time
+
+    InvoiceRef:
+      type: object
+      description: Invoice block. Used in both legacy and charge/credit invoice notifications.
+      xml:
+        name: invoice
+      properties:
+        uuid:
+          type: string
+        subscription_id:
+          type: string
+        state:
+          type: string
+        invoice_number_prefix:
+          type: string
+        invoice_number:
+          type: integer
+        po_number:
+          type: string
+        vat_number:
+          type: string
+        total_in_cents:
+          type: integer
+        currency:
+          type: string
+        date:
+          type: string
+          format: date-time
+        closed_at:
+          type: string
+          format: date-time
+        net_terms:
+          type: integer
+        collection_method:
+          type: string
+
+    TransactionRef:
+      type: object
+      description: Transaction (payment) block.
+      xml:
+        name: transaction
+      properties:
+        id:
+          type: string
+        invoice_id:
+          type: string
+        invoice_number_prefix:
+          type: string
+        invoice_number:
+          type: integer
+        subscription_id:
+          type: string
+        action:
+          type: string
+        amount_in_cents:
+          type: integer
+        status:
+          type: string
+        message:
+          type: string
+        reference:
+          type: string
+        source:
+          type: string
+        cvv_result:
+          type: string
+        avs_result:
+          type: string
+        avs_result_street:
+          type: string
+        avs_result_postal:
+          type: string
+        test:
+          type: boolean
+        voidable:
+          type: boolean
+        refundable:
+          type: boolean
+
+    CreditPaymentRef:
+      type: object
+      xml:
+        name: credit_payment
+      properties:
+        uuid:
+          type: string
+        action:
+          type: string
+        currency:
+          type: string
+        amount_in_cents:
+          type: integer
+        original_invoice_id:
+          type: string
+        applied_to_invoice_id:
+          type: string
+        refund_transaction_id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        voided_at:
+          type: string
+          format: date-time
+
+    ShippingAddressRef:
+      type: object
+      xml:
+        name: shipping_address
+      properties:
+        id:
+          type: integer
+        nickname:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        company:
+          type: string
+        email:
+          type: string
+        vat_number:
+          type: string
+        phone:
+          type: string
+        street1:
+          type: string
+        street2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+
+    GiftCardRef:
+      type: object
+      xml:
+        name: gift_card
+      properties:
+        redemption_code:
+          type: string
+        id:
+          type: integer
+        product_code:
+          type: string
+        unit_amount_in_cents:
+          type: integer
+        currency:
+          type: string
+        gifter_account_code:
+          type: string
+        recipient_account_code:
+          type: string
+        invoice_number:
+          type: integer
+        delivered_at:
+          type: string
+          format: date-time
+        redeemed_at:
+          type: string
+          format: date-time
+        canceled_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        balance_in_cents:
+          type: integer
+
+    UsageRef:
+      type: object
+      xml:
+        name: usage
+      properties:
+        id:
+          type: integer
+        subscription_id:
+          type: string
+        add_on_code:
+          type: string
+        measured_unit_id:
+          type: integer
+        amount:
+          type: number
+        merchant_tag:
+          type: string
+        recording_timestamp:
+          type: string
+          format: date-time
+        usage_timestamp:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        billed_at:
+          type: string
+          format: date-time
+        usage_type:
+          type: string
+        unit_amount_in_cents:
+          type: integer
+        usage_percentage:
+          type: number
+
+    ItemRef:
+      type: object
+      xml:
+        name: item
+      properties:
+        item_code:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        external_sku:
+          type: string
+        accounting_code:
+          type: string
+        revenue_schedule_type:
+          type: string
+        state:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ExternalSubscriptionRef:
+      type: object
+      xml:
+        name: external_subscription
+      properties:
+        id:
+          type: string
+        external_id:
+          type: string
+        external_product_reference:
+          type: object
+          properties:
+            external_id:
+              type: string
+            external_connection_type:
+              type: string
+        last_purchased:
+          type: string
+          format: date-time
+        auto_renew:
+          type: boolean
+        expires_at:
+          type: string
+          format: date-time
+        activated_at:
+          type: string
+          format: date-time
+        app_identifier:
+          type: string
+        quantity:
+          type: integer
+        trial_started_at:
+          type: string
+          format: date-time
+        trial_ends_at:
+          type: string
+          format: date-time
+        state:
+          type: string
+        in_grace_period:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    DunningEventRef:
+      type: object
+      xml:
+        name: dunning_event
+      properties:
+        type:
+          type: string
+        cycle_type:
+          type: string
+        attempt_number:
+          type: integer
+        invoice_number:
+          type: integer
+        final_attempt:
+          type: boolean
+        sent_at:
+          type: string
+          format: date-time
+
+    # Envelope schemas — each event wraps a top-level XML root element
+    AccountEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+
+    SubscriptionEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        subscription:
+          $ref: '#/components/schemas/SubscriptionRef'
+
+    ShippingAddressEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        shipping_address:
+          $ref: '#/components/schemas/ShippingAddressRef'
+
+    PrerenewalEnvelope:
+      type: object
+      properties:
+        notification_type:
+          type: string
+          description: Subtype identifying the prerenewal reminder kind.
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        subscription:
+          $ref: '#/components/schemas/SubscriptionRef'
+
+    ChargeInvoiceEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        invoice:
+          $ref: '#/components/schemas/InvoiceRef'
+
+    CreditInvoiceEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        invoice:
+          $ref: '#/components/schemas/InvoiceRef'
+
+    LegacyInvoiceEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        invoice:
+          $ref: '#/components/schemas/InvoiceRef'
+
+    PaymentEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        transaction:
+          $ref: '#/components/schemas/TransactionRef'
+
+    CreditPaymentEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        credit_payment:
+          $ref: '#/components/schemas/CreditPaymentRef'
+
+    DunningEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        invoice:
+          $ref: '#/components/schemas/InvoiceRef'
+        subscription:
+          $ref: '#/components/schemas/SubscriptionRef'
+        transaction:
+          $ref: '#/components/schemas/TransactionRef'
+
+    GiftCardEnvelope:
+      type: object
+      properties:
+        gift_card:
+          $ref: '#/components/schemas/GiftCardRef'
+
+    UsageEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        usage:
+          $ref: '#/components/schemas/UsageRef'
+
+    ItemEnvelope:
+      type: object
+      properties:
+        item:
+          $ref: '#/components/schemas/ItemRef'
+
+    ExternalSubscriptionEnvelope:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/AccountRef'
+        external_subscription:
+          $ref: '#/components/schemas/ExternalSubscriptionRef'
+
+  messages:
+
+    # Account notifications -----------------------------------------------
+    NewAccountNotification:
+      name: new_account_notification
+      title: New Account
+      summary: A new account is created.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/AccountEnvelope'
+        xml:
+          name: new_account_notification
+
+    UpdatedAccountNotification:
+      name: updated_account_notification
+      title: Updated Account
+      summary: Account attributes updated.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/AccountEnvelope'
+        xml:
+          name: updated_account_notification
+
+    CanceledAccountNotification:
+      name: canceled_account_notification
+      title: Canceled Account
+      summary: An account is closed.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/AccountEnvelope'
+        xml:
+          name: canceled_account_notification
+
+    BillingInfoUpdatedNotification:
+      name: billing_info_updated_notification
+      title: Billing Info Updated
+      summary: Billing information is added or successfully updated.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/AccountEnvelope'
+        xml:
+          name: billing_info_updated_notification
+
+    NewShippingAddressNotification:
+      name: new_shipping_address_notification
+      title: New Shipping Address
+      summary: A new shipping address is created.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ShippingAddressEnvelope'
+        xml:
+          name: new_shipping_address_notification
+
+    UpdatedShippingAddressNotification:
+      name: updated_shipping_address_notification
+      title: Updated Shipping Address
+      summary: An existing shipping address is updated.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ShippingAddressEnvelope'
+        xml:
+          name: updated_shipping_address_notification
+
+    DeletedShippingAddressNotification:
+      name: deleted_shipping_address_notification
+      title: Deleted Shipping Address
+      summary: An existing shipping address is deleted.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ShippingAddressEnvelope'
+        xml:
+          name: deleted_shipping_address_notification
+
+    # Subscription notifications -----------------------------------------
+    NewSubscriptionNotification:
+      name: new_subscription_notification
+      title: New Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: new_subscription_notification
+
+    UpdatedSubscriptionNotification:
+      name: updated_subscription_notification
+      title: Updated Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: updated_subscription_notification
+
+    CanceledSubscriptionNotification:
+      name: canceled_subscription_notification
+      title: Canceled Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: canceled_subscription_notification
+
+    ExpiredSubscriptionNotification:
+      name: expired_subscription_notification
+      title: Expired Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: expired_subscription_notification
+
+    RenewedSubscriptionNotification:
+      name: renewed_subscription_notification
+      title: Renewed Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: renewed_subscription_notification
+
+    ReactivatedAccountNotification:
+      name: reactivated_account_notification
+      title: Reactivated Subscription
+      summary: A previously canceled subscription is reactivated.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: reactivated_account_notification
+
+    SubscriptionPausedNotification:
+      name: subscription_paused_notification
+      title: Subscription Paused
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: subscription_paused_notification
+
+    SubscriptionResumedNotification:
+      name: subscription_resumed_notification
+      title: Subscription Resumed
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: subscription_resumed_notification
+
+    ScheduledSubscriptionPauseNotification:
+      name: scheduled_subscription_pause_notification
+      title: Scheduled Subscription Pause
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: scheduled_subscription_pause_notification
+
+    ScheduledSubscriptionUpdateNotification:
+      name: scheduled_subscription_update_notification
+      title: Scheduled Subscription Update
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: scheduled_subscription_update_notification
+
+    SubscriptionPauseModifiedNotification:
+      name: subscription_pause_modified_notification
+      title: Subscription Pause Modified
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: subscription_pause_modified_notification
+
+    PausedSubscriptionRenewalNotification:
+      name: paused_subscription_renewal_notification
+      title: Paused Subscription Renewal
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: paused_subscription_renewal_notification
+
+    SubscriptionPauseCanceledNotification:
+      name: subscription_pause_canceled_notification
+      title: Subscription Pause Canceled
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/SubscriptionEnvelope'
+        xml:
+          name: subscription_pause_canceled_notification
+
+    # Prerenewal ----------------------------------------------------------
+    PrerenewalNotification:
+      name: prerenewal_notification
+      title: Prerenewal
+      summary: Prerenewal reminder. Inner notification_type identifies the reminder subtype.
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PrerenewalEnvelope'
+        xml:
+          name: prerenewal_notification
+
+    # Charge invoice ------------------------------------------------------
+    NewChargeInvoiceNotification:
+      name: new_charge_invoice_notification
+      title: New Charge Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ChargeInvoiceEnvelope'
+        xml:
+          name: new_charge_invoice_notification
+
+    ProcessingChargeInvoiceNotification:
+      name: processing_charge_invoice_notification
+      title: Processing Charge Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ChargeInvoiceEnvelope'
+        xml:
+          name: processing_charge_invoice_notification
+
+    PastDueChargeInvoiceNotification:
+      name: past_due_charge_invoice_notification
+      title: Past Due Charge Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ChargeInvoiceEnvelope'
+        xml:
+          name: past_due_charge_invoice_notification
+
+    PaidChargeInvoiceNotification:
+      name: paid_charge_invoice_notification
+      title: Paid Charge Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ChargeInvoiceEnvelope'
+        xml:
+          name: paid_charge_invoice_notification
+
+    FailedChargeInvoiceNotification:
+      name: failed_charge_invoice_notification
+      title: Failed Charge Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ChargeInvoiceEnvelope'
+        xml:
+          name: failed_charge_invoice_notification
+
+    ReopenedChargeInvoiceNotification:
+      name: reopened_charge_invoice_notification
+      title: Reopened Charge Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ChargeInvoiceEnvelope'
+        xml:
+          name: reopened_charge_invoice_notification
+
+    UpdatedChargeInvoiceNotification:
+      name: updated_charge_invoice_notification
+      title: Updated Charge Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ChargeInvoiceEnvelope'
+        xml:
+          name: updated_charge_invoice_notification
+
+    # Credit invoice ------------------------------------------------------
+    NewCreditInvoiceNotification:
+      name: new_credit_invoice_notification
+      title: New Credit Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditInvoiceEnvelope'
+        xml:
+          name: new_credit_invoice_notification
+
+    ProcessingCreditInvoiceNotification:
+      name: processing_credit_invoice_notification
+      title: Processing Credit Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditInvoiceEnvelope'
+        xml:
+          name: processing_credit_invoice_notification
+
+    ClosedCreditInvoiceNotification:
+      name: closed_credit_invoice_notification
+      title: Closed Credit Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditInvoiceEnvelope'
+        xml:
+          name: closed_credit_invoice_notification
+
+    VoidedCreditInvoiceNotification:
+      name: voided_credit_invoice_notification
+      title: Voided Credit Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditInvoiceEnvelope'
+        xml:
+          name: voided_credit_invoice_notification
+
+    ReopenedCreditInvoiceNotification:
+      name: reopened_credit_invoice_notification
+      title: Reopened Credit Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditInvoiceEnvelope'
+        xml:
+          name: reopened_credit_invoice_notification
+
+    OpenCreditInvoiceNotification:
+      name: open_credit_invoice_notification
+      title: Open Credit Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditInvoiceEnvelope'
+        xml:
+          name: open_credit_invoice_notification
+
+    UpdatedCreditInvoiceNotification:
+      name: updated_credit_invoice_notification
+      title: Updated Credit Invoice
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditInvoiceEnvelope'
+        xml:
+          name: updated_credit_invoice_notification
+
+    # Legacy invoice ------------------------------------------------------
+    NewInvoiceNotification:
+      name: new_invoice_notification
+      title: New Invoice (Legacy)
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/LegacyInvoiceEnvelope'
+        xml:
+          name: new_invoice_notification
+
+    PendingInvoiceNotification:
+      name: pending_invoice_notification
+      title: Pending Invoice (Legacy)
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/LegacyInvoiceEnvelope'
+        xml:
+          name: pending_invoice_notification
+
+    ProcessingInvoiceNotification:
+      name: processing_invoice_notification
+      title: Processing Invoice (Legacy)
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/LegacyInvoiceEnvelope'
+        xml:
+          name: processing_invoice_notification
+
+    ClosedInvoiceNotification:
+      name: closed_invoice_notification
+      title: Closed Invoice (Legacy)
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/LegacyInvoiceEnvelope'
+        xml:
+          name: closed_invoice_notification
+
+    PastDueInvoiceNotification:
+      name: past_due_invoice_notification
+      title: Past Due Invoice (Legacy)
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/LegacyInvoiceEnvelope'
+        xml:
+          name: past_due_invoice_notification
+
+    # Payment -------------------------------------------------------------
+    ScheduledPaymentNotification:
+      name: scheduled_payment_notification
+      title: Scheduled Payment
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: scheduled_payment_notification
+
+    ProcessingPaymentNotification:
+      name: processing_payment_notification
+      title: Processing Payment
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: processing_payment_notification
+
+    SuccessfulPaymentNotification:
+      name: successful_payment_notification
+      title: Successful Payment
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: successful_payment_notification
+
+    FailedPaymentNotification:
+      name: failed_payment_notification
+      title: Failed Payment
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: failed_payment_notification
+
+    SuccessfulRefundNotification:
+      name: successful_refund_notification
+      title: Successful Refund
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: successful_refund_notification
+
+    VoidPaymentNotification:
+      name: void_payment_notification
+      title: Void Payment
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: void_payment_notification
+
+    FraudInfoUpdatedNotification:
+      name: fraud_info_updated_notification
+      title: Fraud Info Updated
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: fraud_info_updated_notification
+
+    TransactionStatusUpdatedNotification:
+      name: transaction_status_updated_notification
+      title: Transaction Status Updated
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: transaction_status_updated_notification
+
+    TransactionAuthorizedNotification:
+      name: transaction_authorized_notification
+      title: Transaction Authorized
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/PaymentEnvelope'
+        xml:
+          name: transaction_authorized_notification
+
+    # Credit payment ------------------------------------------------------
+    NewCreditPaymentNotification:
+      name: new_credit_payment_notification
+      title: New Credit Payment
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditPaymentEnvelope'
+        xml:
+          name: new_credit_payment_notification
+
+    VoidedCreditPaymentNotification:
+      name: voided_credit_payment_notification
+      title: Voided Credit Payment
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/CreditPaymentEnvelope'
+        xml:
+          name: voided_credit_payment_notification
+
+    # Dunning -------------------------------------------------------------
+    NewDunningEventNotification:
+      name: new_dunning_event_notification
+      title: New Dunning Event
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/DunningEnvelope'
+        xml:
+          name: new_dunning_event_notification
+
+    # Gift card -----------------------------------------------------------
+    PurchasedGiftCardNotification:
+      name: purchased_gift_card_notification
+      title: Purchased Gift Card
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/GiftCardEnvelope'
+        xml:
+          name: purchased_gift_card_notification
+
+    CanceledGiftCardNotification:
+      name: canceled_gift_card_notification
+      title: Canceled Gift Card
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/GiftCardEnvelope'
+        xml:
+          name: canceled_gift_card_notification
+
+    UpdatedGiftCardNotification:
+      name: updated_gift_card_notification
+      title: Updated Gift Card
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/GiftCardEnvelope'
+        xml:
+          name: updated_gift_card_notification
+
+    RegeneratedGiftCardNotification:
+      name: regenerated_gift_card_notification
+      title: Regenerated Gift Card
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/GiftCardEnvelope'
+        xml:
+          name: regenerated_gift_card_notification
+
+    RedeemedGiftCardNotification:
+      name: redeemed_gift_card_notification
+      title: Redeemed Gift Card
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/GiftCardEnvelope'
+        xml:
+          name: redeemed_gift_card_notification
+
+    UpdatedBalanceGiftCardNotification:
+      name: updated_balance_gift_card_notification
+      title: Updated Balance Gift Card
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/GiftCardEnvelope'
+        xml:
+          name: updated_balance_gift_card_notification
+
+    LowBalanceGiftCardNotification:
+      name: low_balance_gift_card_notification
+      title: Low Balance Gift Card
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/GiftCardEnvelope'
+        xml:
+          name: low_balance_gift_card_notification
+
+    # Usage ---------------------------------------------------------------
+    NewUsageNotification:
+      name: new_usage_notification
+      title: New Usage
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/UsageEnvelope'
+        xml:
+          name: new_usage_notification
+
+    # Item ----------------------------------------------------------------
+    NewItemNotification:
+      name: new_item_notification
+      title: New Item
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ItemEnvelope'
+        xml:
+          name: new_item_notification
+
+    UpdatedItemNotification:
+      name: updated_item_notification
+      title: Updated Item
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ItemEnvelope'
+        xml:
+          name: updated_item_notification
+
+    DeactivatedItemNotification:
+      name: deactivated_item_notification
+      title: Deactivated Item
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ItemEnvelope'
+        xml:
+          name: deactivated_item_notification
+
+    ReactivatedItemNotification:
+      name: reactivated_item_notification
+      title: Reactivated Item
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ItemEnvelope'
+        xml:
+          name: reactivated_item_notification
+
+    # External subscription -----------------------------------------------
+    NewExternalSubscriptionNotification:
+      name: new_external_subscription_notification
+      title: New External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: new_external_subscription_notification
+
+    RenewedExternalSubscriptionNotification:
+      name: renewed_external_subscription_notification
+      title: Renewed External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: renewed_external_subscription_notification
+
+    CanceledExternalSubscriptionNotification:
+      name: canceled_external_subscription_notification
+      title: Canceled External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: canceled_external_subscription_notification
+
+    DowngradedExternalSubscriptionNotification:
+      name: downgraded_external_subscription_notification
+      title: Downgraded External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: downgraded_external_subscription_notification
+
+    UpgradedExternalSubscriptionNotification:
+      name: upgraded_external_subscription_notification
+      title: Upgraded External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: upgraded_external_subscription_notification
+
+    ExpiredExternalSubscriptionNotification:
+      name: expired_external_subscription_notification
+      title: Expired External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: expired_external_subscription_notification
+
+    ExtendedRenewalExternalSubscriptionNotification:
+      name: extended_renewal_external_subscription_notification
+      title: Extended Renewal External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: extended_renewal_external_subscription_notification
+
+    RenewalFailureExternalSubscriptionNotification:
+      name: renewal_failure_external_subscription_notification
+      title: Renewal Failure External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: renewal_failure_external_subscription_notification
+
+    RenewalFailureWithGracePeriodExternalSubscriptionNotification:
+      name: renewal_failure_with_grace_period_external_subscription_notification
+      title: Renewal Failure With Grace Period External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: renewal_failure_with_grace_period_external_subscription_notification
+
+    ReactivatedExternalSubscriptionNotification:
+      name: reactivated_external_subscription_notification
+      title: Reactivated External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: reactivated_external_subscription_notification
+
+    ResubscribedExternalSubscriptionNotification:
+      name: resubscribed_external_subscription_notification
+      title: Resubscribed External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: resubscribed_external_subscription_notification
+
+    RefundedExternalSubscriptionNotification:
+      name: refunded_external_subscription_notification
+      title: Refunded External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: refunded_external_subscription_notification
+
+    RefundDeclinedExternalSubscriptionNotification:
+      name: refund_declined_external_subscription_notification
+      title: Refund Declined External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: refund_declined_external_subscription_notification
+
+    RefundReversedExternalSubscriptionNotification:
+      name: refund_reversed_external_subscription_notification
+      title: Refund Reversed External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: refund_reversed_external_subscription_notification
+
+    PausedExternalSubscriptionNotification:
+      name: paused_external_subscription_notification
+      title: Paused External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: paused_external_subscription_notification
+
+    RevokedExternalSubscriptionNotification:
+      name: revoked_external_subscription_notification
+      title: Revoked External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: revoked_external_subscription_notification
+
+    RecoveredExternalSubscriptionNotification:
+      name: recovered_external_subscription_notification
+      title: Recovered External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: recovered_external_subscription_notification
+
+    PriceChangeConfirmedExternalSubscriptionNotification:
+      name: price_change_confirmed_external_subscription_notification
+      title: Price Change Confirmed External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: price_change_confirmed_external_subscription_notification
+
+    PauseScheduleChangedExternalSubscriptionNotification:
+      name: pause_schedule_changed_external_subscription_notification
+      title: Pause Schedule Changed External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: pause_schedule_changed_external_subscription_notification
+
+    VoidedExternalSubscriptionNotification:
+      name: voided_external_subscription_notification
+      title: Voided External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: voided_external_subscription_notification
+
+    PlanChangedExternalSubscriptionNotification:
+      name: plan_changed_external_subscription_notification
+      title: Plan Changed External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: plan_changed_external_subscription_notification
+
+    DowngradeCanceledExternalSubscriptionNotification:
+      name: downgrade_canceled_external_subscription_notification
+      title: Downgrade Canceled External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: downgrade_canceled_external_subscription_notification
+
+    ConsumptionRequestedExternalSubscriptionNotification:
+      name: consumption_requested_external_subscription_notification
+      title: Consumption Requested External Subscription
+      traits:
+        - $ref: '#/components/messageTraits/RecurlyWebhookTrait'
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/ExternalSubscriptionEnvelope'
+        xml:
+          name: consumption_requested_external_subscription_notification

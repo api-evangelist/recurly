@@ -21,7 +21,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/recurly/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
   - aid: recurly:v3-api
@@ -51,6 +51,8 @@ apis:
         url: https://recurly.com/developers/api/v2021-02-25/index.html#section/Getting-Started/API-Authentication
       - type: Webhooks
         url: https://recurly.com/developers/webhooks/
+      - type: AsyncAPI
+        url: https://raw.githubusercontent.com/api-evangelist/recurly/refs/heads/main/asyncapi.yml
 
 common:
   - type: LinkedIn

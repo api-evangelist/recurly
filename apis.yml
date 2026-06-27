@@ -61,13 +61,13 @@ common:
     url: https://recurly.com
   - type: Documentation
     url: https://docs.recurly.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://recurly.com/developers/
   - type: APIReference
     url: https://recurly.com/developers/api/
   - type: Pricing
     url: https://recurly.com/pricing/
-  - type: SignUp
+  - type: Signup
     url: https://recurly.com/get-started/
   - type: GitHubOrganization
     url: https://github.com/recurly
@@ -77,7 +77,7 @@ common:
     url: https://recurly.zendesk.com
   - type: StatusPage
     url: https://status.recurly.com
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.recurly.com/llms.txt
 maintainers:
   - FN: Kin Lane

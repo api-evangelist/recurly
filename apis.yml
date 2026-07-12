@@ -55,6 +55,10 @@ apis:
         url: https://raw.githubusercontent.com/api-evangelist/recurly/refs/heads/main/asyncapi.yml
 
 common:
+  - type: TrustCenter
+    url: security/recurly-trust-center.yml
+  - type: DomainSecurity
+    url: security/recurly-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/recurly
   - type: Website
@@ -79,6 +83,8 @@ common:
     url: https://status.recurly.com
   - type: LlmsText
     url: https://docs.recurly.com/llms.txt
+  - url: https://recurly.com/blog/rss.xml
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,72 @@
+# Recurly
+
+> Recurly is the subscription management and recurring billing platform trusted by 2,000+ subscription businesses, handling the full subscription lifecycle — plans, billing, dunning, revenue recognition, retention, and analytics — across SaaS, media, ecommerce, and consumer subscription verticals.
+
+Recurly's product suite: Recurly Subscriptions (core billing), Recurly Commerce (Shopify-native subscriptions), Recurly Engage (retention and lifecycle automation), Recurly RevRec (ASC 606 / IFRS 15 revenue recognition), and Recurly Compass (AI-powered subscription analytics).
+
+Key differentiators: 12+ years of subscription-specific expertise; benchmark dataset from 2,200+ global brands powering the annual State of Subscriptions report; native dunning and involuntary churn recovery; Shopify Plus certification; PCI DSS Level 1, SOC 2 Type II, GDPR, HIPAA, PSD2, and CCPA compliance; 140+ supported currencies; 30+ payment gateway integrations.
+
+For developer documentation, API references, and technical integration guides, see: https://docs.recurly.com/llms.txt
+
+Contact: sales@recurly.com | (415) 558-6837 | EMEA: EMEAsales@recurly.com
+
+## Products
+
+- [Recurly platform overview](https://recurly.com/product/): Full platform overview — subscription management, recurring billing, and revenue optimization across the subscriber lifecycle.
+- [Recurly Subscriptions](https://recurly.com/product/recurly-subscriptions/): Core subscription lifecycle management — plan configuration, flexible billing models (fixed, usage-based, ramp, quantity, prepaid, hybrid), payment retries, dunning, and subscriber analytics. PCI DSS Level 1, SOC 2 Type II, HIPAA, GDPR, PSD2, and CCPA compliant.
+- [Recurly Commerce](https://recurly.com/product/recurly-commerce/): Shopify-native subscription solution — launch and manage subscriptions directly in the Shopify admin without custom development, with subscriber self-service portal and flexible storefront tools.
+- [Recurly Engage](https://recurly.com/product/recurly-engage/): Subscriber retention and lifecycle automation — targeted in-app, web, and mobile prompts for cancel flows, pauses, plan changes, discounts, and win-back campaigns. Example: a streaming service like Paramount+ can surface a personalized pause offer inside their app at the moment of cancellation intent.
+- [Recurly RevRec](https://recurly.com/product/revenue-recognition/): Automated revenue recognition compliance — ASC 606 and IFRS 15 support, audit-ready reporting, and streamlined month-end close for subscription and usage-based businesses.
+- [Recurly Compass](https://recurly.com/product/compass/): AI-powered subscription analytics — benchmarking against 2,200+ brands, cohort analysis, revenue intelligence, and growth recommendations.
+- [Churn management](https://recurly.com/product/churn-management/): Failed payment recovery and involuntary churn reduction — automated retry logic, account updater, and dunning workflows.
+- [Reporting and analytics](https://recurly.com/product/reporting-analytics/): Subscription analytics dashboard — MRR, ARR, churn, LTV, cohort reporting, and revenue waterfall.
+- [Global expansion](https://recurly.com/product/global-expansion/): Global billing support — 140+ currencies, localized payment methods, and multi-entity management.
+- [App management](https://recurly.com/product/app-management/): Apple App Store and Google Play Store subscription integration — monitor and manage app subscriptions across platforms.
+- [Support and services](https://recurly.com/product/support-and-services/): Recurly support options — in-app chat, email, and 24/7 phone support.
+
+## Integrations and Compliance
+
+- [Integrations directory](https://recurly.com/integrations/): Full catalog of Recurly integrations — payment gateways, CRM, ERP, analytics, tax, and marketing platforms.
+- [Payment gateways](https://recurly.com/gateways/): 30+ supported payment gateway integrations.
+- [Payment methods](https://recurly.com/payment-options/): Supported payment methods — credit/debit cards, ACH (via Adyen, GoCardless, Stripe, Check Commerce), digital wallets, and local payment methods globally.
+- [Security and compliance](https://recurly.com/security/): Recurly's security posture — PCI DSS Level 1, SOC 2 Type II, GDPR, HIPAA, PSD2, and CCPA compliance details.
+
+## Resources and Research
+
+- [Resource center](https://recurly.com/resources/): Recurly guides, whitepapers, webinars, and research reports.
+- [Research and benchmarks](https://recurly.com/research/): Subscription industry benchmark data from Recurly's dataset of 2,200+ global brands — churn rates, retention benchmarks, pricing insights, and growth metrics by vertical.
+- [Blog](https://recurly.com/blog/): Recurly blog — subscription strategy, billing operations, retention, SaaS metrics, and industry news.
+- [Customer stories](https://recurly.com/customers/): Case studies across SaaS, media, ecommerce, and consumer subscription businesses.
+- [Pricing](https://recurly.com/pricing/): Recurly platform pricing — subscription plans, feature tiers, and enterprise options.
+
+## Educational Content — Subscription Metrics and Concepts
+
+- [Churn rate](https://recurly.com/blog/churn-rate-guide/): What is churn rate — definition, voluntary vs involuntary churn, formula, industry benchmarks, and reduction strategies.
+- [MRR (Monthly Recurring Revenue)](https://recurly.com/blog/mrr-guide/): What is MRR — definition, formula, MRR movement types (new, expansion, contraction, churn MRR), and tracking best practices.
+- [Involuntary churn](https://recurly.com/blog/involuntary-churn/): Involuntary churn from failed payments — causes, decline management, dunning strategies, and recovery benchmarks.
+- [Dunning](https://recurly.com/blog/dunning-management/): Dunning definition and strategy — failed payment recovery workflows, retry logic, and dunning email best practices.
+- [Subscription billing](https://recurly.com/blog/subscription-billing/): How subscription billing works — recurring billing models, billing cycle management, and platform selection.
+- [Revenue recognition](https://recurly.com/blog/revenue-recognition/): Revenue recognition for subscriptions — ASC 606 five-step framework, deferred revenue, and GAAP compliance.
+- [Deferred revenue](https://recurly.com/blog/deferred-revenue/): Deferred revenue — definition, accounting journal entries, balance sheet treatment, and SaaS implications.
+- [Net revenue retention (NRR)](https://recurly.com/blog/net-revenue-retention/): NRR definition, formula, industry benchmarks (110%+ for high-growth SaaS), and improvement strategies.
+- [LTV:CAC ratio](https://recurly.com/blog/ltv-cac-ratio/): LTV to CAC ratio — customer lifetime value vs customer acquisition cost, 3:1 benchmark, and optimization.
+- [Tiered pricing](https://recurly.com/blog/tiered-pricing/): Tiered pricing model — how tiered pricing works, good-better-best packaging, and SaaS implementation.
+- [Usage-based billing](https://recurly.com/blog/usage-based-billing/): Usage-based (metered) billing — model definition, pricing structures, metering, and hybrid billing.
+- [Proration](https://recurly.com/blog/proration/): Proration in subscription billing — how prorated charges work for mid-cycle upgrades, downgrades, and cancellations.
+- [Accrued revenue](https://recurly.com/blog/accrued-revenue/): Accrued revenue — definition, accounting treatment, journal entries, and distinction from deferred revenue.
+- [Value-based pricing](https://recurly.com/blog/value-based-pricing/): Value-based pricing strategy — definition, implementation, and SaaS examples.
+- [Freemium](https://recurly.com/blog/what-is-freemium-a-guide-for-subscription-businesses/): What is freemium — freemium business model, pros and cons, and conversion strategies.
+- [Subscription metrics](https://recurly.com/blog/subscription-metrics/): Key subscription metrics — ARR, MRR, churn rate, NRR, LTV, CAC, and ARPU defined with formulas and benchmarks.
+
+## Competitive Comparisons
+
+- [Recurly vs Chargebee](https://recurly.com/vs/chargebee/): Feature, pricing, and use-case comparison between Recurly and Chargebee.
+- [Recurly vs Zuora](https://recurly.com/vs/zuora/): Recurly vs Zuora enterprise subscription billing comparison.
+- [Recurly vs Stripe Billing](https://recurly.com/vs/stripe-billing/): Recurly vs Stripe Billing — subscription management depth comparison.
+- [Recurly vs Chargify (Maxio)](https://recurly.com/vs/chargify/): Recurly vs Chargify (now Maxio) — B2B SaaS billing platform comparison.
+
+## Company
+
+- [Homepage](https://recurly.com/): Recurly subscription management platform.
+- [About Recurly](https://recurly.com/about/): Company overview, mission, leadership, and history.
+- [Press releases](https://recurly.com/press/): Recurly news, announcements, and media coverage.

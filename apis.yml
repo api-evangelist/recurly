@@ -66,6 +66,10 @@ apis:
         url: https://raw.githubusercontent.com/api-evangelist/recurly/refs/heads/main/asyncapi.yml
 
 common:
+  - type: PrivacyPolicy
+    url: https://recurly.com/legal/privacy
+  - type: TermsOfService
+    url: https://recurly.com/legal/terms
   - type: TrustCenter
     url: security/recurly-trust-center.yml
   - type: DomainSecurity

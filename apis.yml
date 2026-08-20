@@ -33,6 +33,14 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/recurly.png
 tags:
+  - Subscription
+  - Billing
+  - Payments
+  - Recurring Revenue
+  - Invoicing
+  - Dunning
+  - Revenue Recognition
+tags_raw:
   - Subscriptions
   - Billing
   - Payments
@@ -57,6 +65,12 @@ apis:
     humanURL: https://recurly.com/developers/api/
     baseURL: https://v3.recurly.com
     tags:
+      - Subscription
+      - Billing
+      - Invoices
+      - Account
+      - Webhook
+    tags_raw:
       - Subscriptions
       - Billing
       - Invoices

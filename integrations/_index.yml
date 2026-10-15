@@ -39,7 +39,7 @@
     app_slug: recurly
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: recurly-pipedream
   label: Pipedream
@@ -65,5 +65,5 @@
     actions: false
     sources: true
     builder: Pipedream repo (component)
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null

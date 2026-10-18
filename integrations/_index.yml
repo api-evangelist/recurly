@@ -95,7 +95,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: recurly-fivetran
   label: Fivetran
@@ -121,7 +121,7 @@
     - connectors/applications/recurly
     vendor_link: https://recurly.com/
     builder: Fivetran
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: recurly-meltano
   label: Meltano
@@ -153,5 +153,5 @@
     - bronze
     - unknown
     builder: 'community (Meltano Hub variant maintainers: airbyte, lambtron)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null

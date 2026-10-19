@@ -155,3 +155,328 @@
     builder: 'community (Meltano Hub variant maintainers: airbyte, lambtron)'
   status: not-a-workflow
   arazzo: null
+- slug: recurly-adyen
+  label: Adyen
+  partner: adyen
+  partner_name: Adyen
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/adyen-and-recurly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Adyen
+    register_id: /partner/adyen-and-recurly/
+    matched_domain: adyen.com
+    matched_by: domain
+    identity_source: wikidata Q4686934 'Adyen' P856 https://www.adyen.com/
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-authorize-net
+  label: Authorize.net
+  partner: authorizenet
+  partner_name: Authorize.net
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/authorizenet/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Authorize.net
+    register_id: /partner/authorizenet/
+    matched_domain: authorize.net
+    matched_by: domain
+    identity_source: the partner page's outbound site link
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-avalara
+  label: Avalara
+  partner: avalara
+  partner_name: Avalara
+  category: TAX
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/avalara-avatax-recurly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Avalara
+    register_id: /partner/avalara-avatax-recurly/
+    matched_domain: avalara.com
+    matched_by: domain
+    identity_source: wikidata Q107386248 'avalara' P856 https://developer.avalara.com/sdk/
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-checkout-com
+  label: Checkout.com
+  partner: checkout-com
+  partner_name: Checkout.com
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/checkoutcom-recurly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Checkout.com
+    register_id: /partner/checkoutcom-recurly/
+    matched_domain: checkout.com
+    matched_by: domain
+    identity_source: wikidata Q110815500 'Checkout.com' P856 https://www.checkout.com/
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-cybersource
+  label: Cybersource
+  partner: cybersource
+  partner_name: Cybersource
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/cybersource/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Cybersource
+    register_id: /partner/cybersource/
+    matched_domain: cybersource.com
+    matched_by: domain
+    identity_source: the partner page's outbound site link
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-ebanx
+  label: Ebanx
+  partner: ebanx
+  partner_name: Ebanx
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/ebanx/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Ebanx
+    register_id: /partner/ebanx/
+    matched_domain: ebanx.com
+    matched_by: domain
+    identity_source: the partner page's outbound site link
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-gocardless
+  label: GoCardless
+  partner: gocardless
+  partner_name: GoCardless
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/gocardless/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: GoCardless
+    register_id: /partner/gocardless/
+    matched_domain: gocardless.com
+    matched_by: domain
+    identity_source: the partner page's outbound site link
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-intuit-quickbooks
+  label: Intuit QuickBooks
+  partner: quickbooks
+  partner_name: Intuit QuickBooks
+  category: ACCOUNTING / ERP / FINANCE
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/intuit-quickbooks/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Intuit QuickBooks
+    register_id: /partner/intuit-quickbooks/
+    matched_domain: intuit.com
+    matched_by: domain+name-among-holders
+    identity_source: the partner page's outbound site link
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-mailchimp
+  label: Mailchimp
+  partner: mailchimp
+  partner_name: Mailchimp
+  category: EMAIL MARKETING
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/mailchimp/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Mailchimp
+    register_id: /partner/mailchimp/
+    matched_domain: mailchimp.com
+    matched_by: domain+name-among-holders
+    identity_source: the partner page's outbound site link
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-nuvei
+  label: Nuvei
+  partner: nuvei
+  partner_name: Nuvei
+  category: CHARGEBACK MANAGEMENT
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/nuvei-and-recurly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Nuvei
+    register_id: /partner/nuvei-and-recurly/
+    matched_domain: nuvei.com
+    matched_by: domain
+    identity_source: wikidata Q47508523 'Nuvei' P856 https://www.nuvei.com
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-oracle-netsuite
+  label: Oracle NetSuite
+  partner: netsuite
+  partner_name: Oracle NetSuite
+  category: ACCOUNTING / ERP / FINANCE
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/oracle-netsuite/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Oracle NetSuite
+    register_id: /partner/oracle-netsuite/
+    matched_domain: netsuite.com
+    matched_by: domain
+    identity_source: the partner page's outbound site link
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-stripe
+  label: Stripe
+  partner: stripe
+  partner_name: Stripe
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/partner-stripe/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Stripe
+    register_id: /partner/partner-stripe/
+    matched_domain: stripe.com
+    matched_by: domain
+    identity_source: wikidata Q7624104 'Stripe' P856 https://stripe.com/
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: recurly-worldpay
+  label: Worldpay
+  partner: worldpay
+  partner_name: Worldpay
+  category: PAYMENT GATEWAY
+  type: marketplace
+  marketplace: own
+  channel: unknown
+  evidence: https://recurly.com/partner/worldpay-recurly/
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Recurly partners & integrations (recurly.com/partners-integrations/)
+    spec_file: null
+    role: recurly-partner-listing
+    registered_name: Worldpay
+    register_id: /partner/worldpay-recurly/
+    matched_domain: worldpay.com
+    matched_by: domain
+    identity_source: wikidata Q7915220 'Worldpay' P856 https://www.worldpay.com/en
+    signal_note: 'Recurly prints no builder: direction unknown (out of position shares); one edge per partner'
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
